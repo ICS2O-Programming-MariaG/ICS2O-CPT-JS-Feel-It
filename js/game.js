@@ -8,13 +8,16 @@
 /* global Phaser */
 
 //link to splashScene.js
-import splashScene from "./splashScene.js";
+import SplashScene from "./splashScene.js";
+//link to titleScene.js
+import TitleScene from "./titleScene.js";
 
-//creating a constant to 'hold' the splashScene file
-const SPLASH_SCENE = new splashScene();
+//creating constants to 'hold' the scene files
+const splashScene = new SplashScene();
+const titleScene = new TitleScene();
 
 //using a constant to set up the basic Phaser game
-const CONFIG = {
+const config = {
   //type of game
   type: Phaser.AUTO,
   //dimensions of screen
@@ -37,11 +40,12 @@ const CONFIG = {
   },
 }
 
-const GAME = new Phaser.Game(CONFIG);
-console.log(GAME);
+const game = new Phaser.Game(config);
+console.log(game);
 
 //loading scenes
-GAME.scene.add('splashScene', SPLASH_SCENE);
+game.scene.add('splashScene', splashScene);
+game.scene.add('titleScene', titleScene);
 
 //starting scene
-GAME.scene.start('splashScene');
+game.scene.start('splashScene');

@@ -4,23 +4,23 @@
 // Created by: Maria G
 // Created on: May 30, 2022
 // This file contains the JS code for index.html
-// Splash scene
+// Title scene
 
 //code written below extends (adds to) prewritten code in Phaser.Scene
-class splashScene extends Phaser.Scene {
+class titleScene extends Phaser.Scene {
   constructor() {
     //"super" runs Phaser.Scene first
-    super({key: 'splashScene'});
+    super({key: 'titleScene'});
   }
 
   init(data) {
     //initializing background colour
-    this.cameras.main.setBackgroundColor("#000000");
+    this.cameras.main.setBackgroundColor("#ffffff");
   }
 
   preload() {
     //for debugging purposes: writes Splash Scene in the console to let programmer know what scene/file is being displayed
-    console.log("Splash Scene");
+    console.log("Title Scene");
   }
 
   create(data) {
@@ -28,9 +28,8 @@ class splashScene extends Phaser.Scene {
   }
 
   update(time, delta) {
-    //changing scene to title scene
-    this.scene.switch('titleScene');
+    //return to later
   }
 }
 
-export default splashScene
+export default titleScene
