@@ -7,7 +7,7 @@
 /* global Phaser */
 
 //using a constant to set up the basic Phaser game
-const config = {
+const CONFIG = {
   //type of game
   type: Phaser.AUTO,
   //dimensions of screen
@@ -16,5 +16,5 @@ const config = {
   backgroundColor: 0x5f6e7a
 }
 
-const game = new Phaser.Game(config);
-console.log(game);
+const GAME = new Phaser.Game(CONFIG);
+console.log(GAME);
