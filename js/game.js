@@ -7,6 +7,12 @@
 
 /* global Phaser */
 
+//link to splashScene.js
+import splashScene from "./splashScene.js";
+
+//creating a constant to 'hold' the splashScene file
+const SPLASH_SCENE = new splashScene();
+
 //using a constant to set up the basic Phaser game
 const CONFIG = {
   //type of game
@@ -28,8 +34,14 @@ const CONFIG = {
     mode: Phaser.Scale.FIT,
     //centring the background on the page
     autoCenter: Phaser.Scale.CENTER_BOTH
-  }
+  },
 }
 
 const GAME = new Phaser.Game(CONFIG);
 console.log(GAME);
+
+//loading scenes
+GAME.scene.add('splashScene', SPLASH_SCENE);
+
+//starting scene
+GAME.scene.start('splashScene');
