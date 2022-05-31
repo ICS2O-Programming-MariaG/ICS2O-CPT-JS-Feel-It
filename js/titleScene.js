@@ -11,8 +11,15 @@ class titleScene extends Phaser.Scene {
   constructor() {
     //"super" runs Phaser.Scene first
     super({key: 'titleScene'});
+    
     //initializing title scene image variable
     this.titleSceneBackgroundImage = null;
+    
+    //initializing title scene text variable
+    this.titleSceneText = null;
+
+    //initializing a variable to style the text on the title screen
+    this.titleSceneTextStyle = {font: '200px Times', fill: '#101358', align: 'center'};
   }
 
   init(data) {
@@ -33,6 +40,9 @@ class titleScene extends Phaser.Scene {
     //centring the image on the page
     this.titleSceneBackgroundImage.x = 1920 / 2;
     this.titleSceneBackgroundImage.y = 1080 / 2;
+
+    //adding text and positioning it on the screen
+    this.titleSceneText = this.add.text(1920 / 2, (1080 / 2) + 375, 'Beekeepers', this.titleSceneTextStyle).setOrigin(0.5);
   }
 
   update(time, delta) {
