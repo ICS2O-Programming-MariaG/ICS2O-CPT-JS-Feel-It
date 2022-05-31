@@ -31,7 +31,7 @@ const config = {
     },
   },
   //settings for background
-  backgroundColor: 0xBCDADE,
+  backgroundColor: 0xFFFFFF,
   //making scale of background change when screen/window size changes
   scale: {
     mode: Phaser.Scale.FIT,
