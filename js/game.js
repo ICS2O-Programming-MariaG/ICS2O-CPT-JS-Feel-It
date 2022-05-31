@@ -11,10 +11,13 @@
 import SplashScene from "./splashScene.js";
 //link to titleScene.js
 import TitleScene from "./titleScene.js";
+//link to menuScene.js
+import MenuScene from "./menuScene.js";
 
 //creating constants to 'hold' the scene files
 const splashScene = new SplashScene();
 const titleScene = new TitleScene();
+const menuScene = new MenuScene();
 
 //using a constant to set up the basic Phaser game
 const config = {
@@ -46,6 +49,7 @@ console.log(game);
 //loading scenes
 game.scene.add('splashScene', splashScene);
 game.scene.add('titleScene', titleScene);
+game.scene.add('menuScene', menuScene);
 
 //starting scene
 game.scene.start('splashScene');

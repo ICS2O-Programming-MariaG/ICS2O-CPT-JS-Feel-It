@@ -11,20 +11,28 @@ class titleScene extends Phaser.Scene {
   constructor() {
     //"super" runs Phaser.Scene first
     super({key: 'titleScene'});
+    //initializing title scene image variable
+    this.titleSceneBackgroundImage = null;
   }
 
   init(data) {
     //initializing background colour
-    this.cameras.main.setBackgroundColor("#BCDADE");
+    this.cameras.main.setBackgroundColor("#FFFFFF");
   }
 
   preload() {
     //for debugging purposes: writes Splash Scene in the console to let programmer know what scene/file is being displayed
     console.log("Title Scene");
+    //loading the image to be displayed as background image
+    this.load.image('titleSceneBackground', '../images/titleSceneImage.webp');
   }
 
   create(data) {
-    //come back to later
+    //creating the image loaded above
+    this.titleSceneBackgroundImage = this.add.sprite(0, 0, 'titleSceneBackground');
+    //centring the image on the page
+    this.titleSceneBackgroundImage.x = 1920 / 2;
+    this.titleSceneBackgroundImage.y = 1080 / 2;
   }
 
   update(time, delta) {

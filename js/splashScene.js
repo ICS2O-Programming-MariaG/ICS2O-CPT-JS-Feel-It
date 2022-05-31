@@ -11,6 +11,8 @@ class splashScene extends Phaser.Scene {
   constructor() {
     //"super" runs Phaser.Scene first
     super({key: 'splashScene'});
+    //initializing splashSceneBackgroundImage variable
+    this.splashSceneBackgroundImage = null;
   }
 
   init(data) {
