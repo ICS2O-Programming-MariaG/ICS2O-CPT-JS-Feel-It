@@ -17,6 +17,9 @@ class gameScene extends Phaser.Scene {
 
     //initializing the bee sprite variable
     this.beeSprite = null;
+
+    //creating a boolean variable which will later make sure that only one bolt can be fired each time the space bar is pressed
+    this.fireBolt = false;
   }
 
   init(data) {
@@ -106,10 +109,21 @@ class gameScene extends Phaser.Scene {
     const keySpacePressed = this.input.keyboard.addKey('SPACE');
     //if statement checks if space bar is pressed and fires bolt/missile
     if (keySpacePressed.isDown === true) {
-      //using a variable to add a bolt/missile each time if statement is true
-      const addNewBolt = this.physics.add.sprite(this.beeSprite.x, this.beeSprite.y, 'bolt').setScale(0.1);
-      //adding the new bolt to the group of bolts in the "create" section
-      this.boltGroup.add(addNewBolt);
+      //checking if a bolt has already been fired while the space bar was pressed
+      if (this.fireBolt === false) {
+        //using a variable to add a bolt/missile each time boolean expression is true
+        const addNewBolt = this.physics.add.sprite(this.beeSprite.x, this.beeSprite.y, 'bolt').setScale(0.1);
+        //adding the new bolt to the group of bolts in the "create" section
+        this.boltGroup.add(addNewBolt);
+        //changing the fireBolt variable to true, indicating that a missile has been fired
+        this.fireBolt = true;
+      }
+    }
+
+    //using another if statement to check if space key is up, so that bolts can be fired multiple times during the game, once for each time the space bar is pressed
+    if (keySpacePressed.isUp === true) {
+      //resetting the fireBolt variable to false so that a bolt can be fired again the next time the space bar is pressed
+      this.fireBolt = false;
     }
   }
 }
