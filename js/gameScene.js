@@ -103,11 +103,11 @@ class gameScene extends Phaser.Scene {
     }
 
     //variable checks for space bar pressed, to fire a "bolt"/missile
-    const keySpacePressed = this.inputkeyboard.addKey('SPACE');
+    const keySpacePressed = this.input.keyboard.addKey('SPACE');
     //if statement checks if space bar is pressed and fires bolt/missile
     if (keySpacePressed.isDown === true) {
       //using a variable to add a bolt/missile each time if statement is true
-      const addNewBolt = this.physics.add.sprite(this.beeSprite.x, this.beeSprite.y, 'bolt');
+      const addNewBolt = this.physics.add.sprite(this.beeSprite.x, this.beeSprite.y, 'bolt').setScale(0.1);
       //adding the new bolt to the group of bolts in the "create" section
       this.boltGroup.add(addNewBolt);
     }
