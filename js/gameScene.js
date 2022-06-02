@@ -39,6 +39,9 @@ class gameScene extends Phaser.Scene {
 
     //loading the image for the "bolt"/missile fired from the from the bee
     this.load.image('bolt', '../images/bolt.png');
+
+    //loading the sound file for when a bolt is fired
+    this.load.audio('boltSound', '../sounds/boltFiredSound.wav');
   }
 
   create(data) {
@@ -115,6 +118,8 @@ class gameScene extends Phaser.Scene {
         const addNewBolt = this.physics.add.sprite(this.beeSprite.x, this.beeSprite.y, 'bolt').setScale(0.1);
         //adding the new bolt to the group of bolts in the "create" section
         this.boltGroup.add(addNewBolt);
+        //adding a sound effect (loaded in the preload section) each time a missile is fired
+        this.sound.play('boltSound');
         //changing the fireBolt variable to true, indicating that a missile has been fired
         this.fireBolt = true;
       }
@@ -125,6 +130,17 @@ class gameScene extends Phaser.Scene {
       //resetting the fireBolt variable to false so that a bolt can be fired again the next time the space bar is pressed
       this.fireBolt = false;
     }
+
+    //applying a function to all children (individual bolts) in the group boltGroup
+    this.boltGroup.children.each(function (item) {
+      //item represents each individual bolt in the group
+      //changing the x-value of the bolt on the screen, making it appear to shoot towards the right side of the screen
+      item.x = item.x + 15;
+      //destroying the bolts after they go off the screen so that they do not take up too much memory on the computer
+      if (item.x > 1920) {
+        item.destroy();
+      }
+    })
   }
 }
 
