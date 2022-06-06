@@ -1,6 +1,6 @@
-// Copyright (c) 2022 Maria Goemans All rights reserved
+// Copyright (c) 2022 Mr. Coxall All rights reserved
+// Modified by: Maria Goemans
 //
-// Created by: Maria G
 // Created on: May 30, 2022
 // This file contains the JS code for index.html
 // Phaser 3 configuration file

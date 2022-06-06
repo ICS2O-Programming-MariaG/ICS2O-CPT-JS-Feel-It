@@ -1,7 +1,7 @@
 /* global Phaser */
-// Copyright (c) 2022 Maria Goemans All rights reserved
+// Copyright (c) 2022 Mr. Coxall All rights reserved
 //
-// Created by: Maria G
+// Modified by: Maria Goemans
 // Created on: May 31, 2022
 // This file contains the JS code for index.html
 // Game scene
