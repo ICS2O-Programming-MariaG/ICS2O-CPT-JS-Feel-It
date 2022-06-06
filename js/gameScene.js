@@ -9,9 +9,26 @@
 //code written below extends (adds to) prewritten code in Phaser.Scene
 class gameScene extends Phaser.Scene {
 
-  //function call for creating a pesticide enemy
+  //function definition for creating a pesticide enemy (using a function because it will be referenced multiple times throughout the code)
   createPesticide() {
-    //TBD
+    //creating a variable to make enemies appear at a random y location between 1 and 1080 px
+    const pesticideYLocation = Math.floor(Math.random() * 1080) + 1;
+    
+    //using a variable and Math.random() to make the pesticides move slightly up or down and be less predictable
+    let pesticideYVelocity = Math.floor(Math.random() * 50) +1;
+    //multiplying the pesticideYVelocity by a negative or positive 1 to make pesticides move slightly up or down
+    pesticideYVelocity *= Math.round(Math.random()) ? 1 : -1;
+    
+    //creating a variable that makes an enemy appear each time this function is called
+    const aPesticide = this.physics.add.sprite(1920, pesticideYLocation, 'pesticide').setScale(0.4);
+    
+    //adding an x velocity to the pesticide created using physics to make the enemy move to the right of the screen (towards the bee sprite)
+    aPesticide.body.velocity.x = -200;
+    //adding the y velocity using the variable defined above
+    aPesticide.body.velocity.y = pesticideYVelocity;
+    
+    //adding the new sprite enemy created to the pesticide group
+    this.pesticideGroup.add(aPesticide);
   }
   
   constructor() {
@@ -67,7 +84,7 @@ class gameScene extends Phaser.Scene {
 
     //creating a "group" for the same code to apply to all the enemy pesticides spawned
     this.pesticideGroup = this.add.group();
-    //creating a function for creating a pesticide - this will be used to create enemies several times throughout the code
+    //calling a function (defined at the top of the file) for creating a pesticide - this will be used to create enemies several times throughout the code
     this.createPesticide();
   }
 
