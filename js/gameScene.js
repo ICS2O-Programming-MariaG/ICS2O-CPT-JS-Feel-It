@@ -66,9 +66,9 @@ class gameScene extends Phaser.Scene {
     if (keyLeftPressed.isDown === true) {
       //moves the bee sprite left on the x-axis
       this.beeSprite.x -= 5;
-      //stopping the sprite from moving off the screen
+      //wrapping the sprite to the other side of the screen when it is moved off the right of the screen
       if (this.beeSprite.x < 0) {
-        this.beeSprite.x = 0;
+        this.beeSprite.x = 1920;
       }
     }
 
@@ -78,9 +78,9 @@ class gameScene extends Phaser.Scene {
     if (keyRightPressed.isDown === true) {
       //moves the bee sprite right on the x-axis
       this.beeSprite.x += 5;
-      //stopping the sprite from moving off the screen
+      //wrapping the sprite to the other side of the screen when it is moved off the left of the screen
       if (this.beeSprite.x > 1920) {
-        this.beeSprite.x = 1920;
+        this.beeSprite.x = 0;
       }
     }
 
@@ -90,9 +90,9 @@ class gameScene extends Phaser.Scene {
     if (keyUpPressed.isDown === true) {
       //moves the bee sprite up on the y-axis
       this.beeSprite.y -= 5;
-      //stopping the sprite from moving off the screen
+      //wrapping the sprite to the other side of the screen when it is moved off the top of the screen
       if (this.beeSprite.y < 0) {
-        this.beeSprite.y = 0;
+        this.beeSprite.y = 1080;
       }
     }
 
@@ -102,9 +102,9 @@ class gameScene extends Phaser.Scene {
     if (keyDownPressed.isDown === true) {
       //moves bee sprite down on the y-axis
       this.beeSprite.y += 5;
-      //stopping the sprite from moving off the screen
+      //wrapping the sprite to the other side of the screen when it is moved off the bottom of the screen
       if (this.beeSprite.y > 1080) {
-        this.beeSprite.y = 1080;
+        this.beeSprite.y = 0;
       }
     }
 

@@ -38,7 +38,7 @@ class splashScene extends Phaser.Scene {
 
   update(time, delta) {
     //changing the amount of time during which this scene is shown
-    if (time > 3000) {
+    if (time > 3500) {
       //changing scene to title scene
       this.scene.switch('titleScene');
     }
