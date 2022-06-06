@@ -68,6 +68,9 @@ class gameScene extends Phaser.Scene {
 
     //loading the sound file for when a bolt is fired
     this.load.audio('boltSound', '../sounds/boltFiredSound.wav');
+
+    //loading the sound file for when a bolt destroyes a pesticide
+    this.load.audio('explosion', '../sounds/enemyDestroyed.wav');
   }
 
   create(data) {
@@ -86,6 +89,25 @@ class gameScene extends Phaser.Scene {
     this.pesticideGroup = this.add.group();
     //calling a function (defined at the top of the file) for creating a pesticide - this will be used to create enemies several times throughout the code
     this.createPesticide();
+
+    //adding a physics collider: when bolts hit pesticides, call a function
+    this.physics.add.collider(this.boltGroup, this.pesticideGroup, function (boltCollide, pesticideCollide) {
+      //destroying the pesticide enemy upon collision
+      pesticideCollide.destroy();
+      
+      //destroying the bolt upon collision
+      boltCollide.destroy();
+
+      //playing an explosion sound upon collision
+      //explosion sound taken from https://mixkit.co/free-sound-effects/boom/
+      this.sound.play('explosion');
+      
+      //calling function twice to add two new pesticides each time one is destroyed
+      this.createPesticide();
+      this.createPesticide();
+      
+      //binding above code to "this": 'this' represents the class created at the top of the file (gameScene)
+    }.bind(this));
   }
 
   update(time, delta) {
