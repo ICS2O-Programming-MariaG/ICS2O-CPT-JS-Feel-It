@@ -8,6 +8,12 @@
 
 //code written below extends (adds to) prewritten code in Phaser.Scene
 class gameScene extends Phaser.Scene {
+
+  //function call for creating a pesticide enemy
+  createPesticide() {
+    //TBD
+  }
+  
   constructor() {
     //"super" accesses the properties of Phaser first
     super({key: 'gameScene'});
@@ -40,6 +46,9 @@ class gameScene extends Phaser.Scene {
     //loading the image for the "bolt"/missile fired from the from the bee
     this.load.image('bolt', '../images/bolt.png');
 
+    //loading the image for the "pesticide" enemy
+    this.load.image('pesticide', '../images/beePesticide.png');
+
     //loading the sound file for when a bolt is fired
     this.load.audio('boltSound', '../sounds/boltFiredSound.wav');
   }
@@ -53,8 +62,13 @@ class gameScene extends Phaser.Scene {
     //creating the bee sprite on the screen
     this.beeSprite = this.physics.add.sprite(100, 1080 / 2, 'beeSprite').setScale(0.25);
 
-    //creating a "group" for all the bolts/missiles to have the same properties
+    //creating a "group" for the same code to apply to all the bolts created
     this.boltGroup = this.physics.add.group();
+
+    //creating a "group" for the same code to apply to all the enemy pesticides spawned
+    this.pesticideGroup = this.add.group();
+    //creating a function for creating a pesticide - this will be used to create enemies several times throughout the code
+    this.createPesticide();
   }
 
   update(time, delta) {
