@@ -53,7 +53,7 @@ class gameScene extends Phaser.Scene {
     //initializing a variable for the game over text
     this.gameOverText = null;
     //styling the game over text
-    this.gameOverTextStyle = { font: '65px Arial', fill: '#ff0000', align: center };
+    this.gameOverTextStyle = { font: '65px Arial', fill: '#ff0000', align: 'center' };
   }
 
   init(data) {
