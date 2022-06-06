@@ -43,6 +43,12 @@ class gameScene extends Phaser.Scene {
 
     //creating a boolean variable which will later make sure that only one bolt can be fired each time the space bar is pressed
     this.fireBolt = false;
+
+    //initializing variables for the score and the text displaying the score
+    this.score = 0;
+    this.scoreText = null;
+    //using a variable to select a font for the score
+    this.scoreTextStyle = { font: '65px Arial', fill: '#ffffff', align: 'center' };
   }
 
   init(data) {
@@ -79,6 +85,9 @@ class gameScene extends Phaser.Scene {
     //positioning the background image to take up the screen
     this.gameSceneBackground.setOrigin(0, 0);
 
+    //adding the score text to the screen using the variables initialized in the "constructor"
+    this.scoreText = this.add.text(10, 10, 'Score: ' + this.score.toString(), this.scoreTextStyle);
+
     //creating the bee sprite on the screen
     this.beeSprite = this.physics.add.sprite(100, 1080 / 2, 'beeSprite').setScale(0.25);
 
@@ -101,6 +110,11 @@ class gameScene extends Phaser.Scene {
       //playing an explosion sound upon collision
       //explosion sound taken from https://mixkit.co/free-sound-effects/boom/
       this.sound.play('explosion');
+
+      //adding 1 point to the score with each destroyed pesticide
+      this.score = this.score + 1;
+      //displaying the new score to the screen
+      this.scoreText.setText('Score: ' + this.score.toString())
       
       //calling function twice to add two new pesticides each time one is destroyed
       this.createPesticide();
