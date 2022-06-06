@@ -49,6 +49,11 @@ class gameScene extends Phaser.Scene {
     this.scoreText = null;
     //using a variable to select a font for the score
     this.scoreTextStyle = { font: '65px Arial', fill: '#ffffff', align: 'center' };
+
+    //initializing a variable for the game over text
+    this.gameOverText = null;
+    //styling the game over text
+    this.gameOverTextStyle = { font: '65px Arial', fill: '#ff0000', align: center };
   }
 
   init(data) {
@@ -122,6 +127,18 @@ class gameScene extends Phaser.Scene {
       
       //binding above code to "this": 'this' represents the class created at the top of the file (gameScene)
     }.bind(this));
+
+    //adding a physics collider: when pesticides hit bee sprite
+    this.physics.add.collider(this.beeSprite, this.pesticideGroup, function (beeCollide, pesticideCollide) {
+      //playing sad losing music
+      this.sound.play('gameOver');
+      //stopping all movement on the screen
+      this.physics.pause();
+      //destroying bee sprite and pesticide
+      beeColide.destroy();
+      pesticideCollide.destroy();
+      //AT 1:35 IN CPT 15
+    })
   }
 
   update(time, delta) {
