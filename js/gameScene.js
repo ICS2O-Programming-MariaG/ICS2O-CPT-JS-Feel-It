@@ -250,7 +250,7 @@ class gameScene extends Phaser.Scene {
     })
 
     //checking if the health points are at 0 (the game is over)
-    if (this.healthPoints === 0) {
+    if (this.healthPoints <= 0) {
       while (this.endGameCalled === false) {
         //function call to a function that shows game ending text and plays game over music
         this.endOfGame();
@@ -270,10 +270,11 @@ class gameScene extends Phaser.Scene {
     this.gameOverText = this.add.text(1920 / 2, 1080 / 2, 'Game Over!\nClick to play again.', this.gameOverTextStyle).setOrigin(0.5);
     //making the text interactive so that it starts the game again when it is clicked
     this.gameOverText.setInteractive({ useHandCursor: true });
-    this.gameOverText.on('pointerdown', () => this.scene.start('gameScene'));
-    //resetting points and health points variables
+    this.gameOverText.on('pointerdown', () => this.scene.start('menuScene'));
+    //resetting points, function call and health points variables
     this.score = 0;
     this.healthPoints = 3;
+    this.endGameCalled = false;
   }
 }
 
