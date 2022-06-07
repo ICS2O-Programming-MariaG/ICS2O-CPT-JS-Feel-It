@@ -15,7 +15,7 @@ class gameScene extends Phaser.Scene {
     const pesticideYLocation = Math.floor(Math.random() * 1080) + 1;
     
     //using a variable and Math.random() to make the pesticides move slightly up or down and be less predictable
-    let pesticideYVelocity = Math.floor(Math.random() * 50) +1;
+    let pesticideYVelocity = Math.floor(Math.random() * 50) + 1;
     //multiplying the pesticideYVelocity by a negative or positive 1 to make pesticides move slightly up or down
     pesticideYVelocity *= Math.round(Math.random()) ? 1 : -1;
     
@@ -54,6 +54,12 @@ class gameScene extends Phaser.Scene {
     this.gameOverText = null;
     //styling the game over text
     this.gameOverTextStyle = { font: '65px Arial', fill: '#ff0000', align: 'center' };
+
+    //initializing variables for health points and the text displaying the health points
+    this.healthPoints = 3;
+    this.healthPointsText = null;
+    //using a variable to select a font for the health points
+    this.healthPointsTextStyle = { font: '65px Arial', fill: '#ffffff', align: 'center' };
   }
 
   init(data) {
@@ -82,6 +88,12 @@ class gameScene extends Phaser.Scene {
 
     //loading the sound file for when a bolt destroyes a pesticide
     this.load.audio('explosion', '../sounds/enemyDestroyed.wav');
+
+    //loading the sound file for game over
+    this.load.audio('endMusic', '../sounds/bolt.wav');
+
+    //loading the sound file for when a pesticide collides with the bee sprite
+    this.load.audio('enemyCollision', '../sounds/collisionBeeAndEnemy.wav');
   }
 
   create(data) {
@@ -92,6 +104,9 @@ class gameScene extends Phaser.Scene {
 
     //adding the score text to the screen using the variables initialized in the "constructor"
     this.scoreText = this.add.text(10, 10, 'Score: ' + this.score.toString(), this.scoreTextStyle);
+
+    //adding the health points text to the screen using the variables initialized in the "constructor"
+    this.healthPointsText = this.add.text(350, 10, 'Health Points: ' + this.healthPoints.toString(), this.healthPointsTextStyle);
 
     //creating the bee sprite on the screen
     this.beeSprite = this.physics.add.sprite(100, 1080 / 2, 'beeSprite').setScale(0.25);
@@ -119,7 +134,7 @@ class gameScene extends Phaser.Scene {
       //adding 1 point to the score with each destroyed pesticide
       this.score = this.score + 1;
       //displaying the new score to the screen
-      this.scoreText.setText('Score: ' + this.score.toString())
+      this.scoreText.setText('Score: ' + this.score.toString());
       
       //calling function twice to add two new pesticides each time one is destroyed
       this.createPesticide();
@@ -129,16 +144,21 @@ class gameScene extends Phaser.Scene {
     }.bind(this));
 
     //adding a physics collider: when pesticides hit bee sprite
-    this.physics.add.collider(this.beeSprite, this.pesticideGroup, function (beeCollide, pesticideCollide) {
-      //playing sad losing music
-      this.sound.play('gameOver');
-      //stopping all movement on the screen
-      this.physics.pause();
-      //destroying bee sprite and pesticide
-      beeColide.destroy();
+    this.physics.add.collider(this.beeSprite, this.pesticideGroup, function (beeSpriteCollide, pesticideCollide) {
+      //playing collision music
+      this.sound.play('enemyCollision');
+      
+      //destroying the pesticide sprite
       pesticideCollide.destroy();
-      //AT 1:35 IN CPT 15
-    })
+
+      //function call to make another pesticide enemy appear at the other side of the screen
+      this.createPesticide();
+
+      //removing 1 health point each time pesticides collide with the bee sprite
+      this.healthPoints -= 1;
+      //displaying the new score to the screen
+      this.healthPointsText.setText('Health Points: ' + this.healthPoints.toString());
+    }.bind(this))
   }
 
   update(time, delta) {
@@ -225,7 +245,26 @@ class gameScene extends Phaser.Scene {
         item.destroy();
       }
     })
+
+    //checking if the health points are at 0 (the game is over)
+    if (this.healthPoints === 0) {
+      //function call to a function that shows game ending text and plays game over music
+      this.endOfGame();
+    }
   }
+
+  //function definition for when health points are at 0, when the game should end and a "game over" message should be displayed to the screen
+  endOfGame() {
+    //stopping all movement on the screen
+    this.physics.pause();
+    //destroying the bee sprite
+    this.beeSprite.destroy();
+    //displaying game over text
+    this.gameOverText = this.add.text(1920 / 2, 1080 / 2, 'Game Over!\nClick to play again.', this.gameOverTextStyle).setOrigin(0.5);
+    //making the text interactive so that it starts the game again when it is clicked
+    this.gameOverText.setInteractive({ useHandCursor: true });
+    this.gameOverText.on('pointerdown', () => this.scene.start('gameScene'));
+    }
 }
 
 export default gameScene
