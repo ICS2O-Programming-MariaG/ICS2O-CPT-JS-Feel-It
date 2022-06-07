@@ -93,7 +93,7 @@ class gameScene extends Phaser.Scene {
     this.load.audio('explosion', '../sounds/enemyDestroyed.wav');
 
     //loading the sound file for game over
-    this.load.audio('endMusic', '../sounds/bolt.wav');
+    this.load.audio('endMusic', '../sounds/endGameNoise.wav');
 
     //loading the sound file for when a pesticide collides with the bee sprite
     this.load.audio('enemyCollision', '../sounds/collisionBeeAndEnemy.wav');
@@ -148,19 +148,36 @@ class gameScene extends Phaser.Scene {
 
     //adding a physics collider: when pesticides hit bee sprite
     this.physics.add.collider(this.beeSprite, this.pesticideGroup, function (beeSpriteCollide, pesticideCollide) {
-      //playing collision music
-      this.sound.play('enemyCollision');
-      
-      //destroying the pesticide sprite
-      pesticideCollide.destroy();
-
-      //function call to make another pesticide enemy appear at the other side of the screen
-      this.createPesticide();
-
       //removing 1 health point each time pesticides collide with the bee sprite
       this.healthPoints -= 1;
       //displaying the new score to the screen
       this.healthPointsText.setText('Health Points: ' + this.healthPoints.toString());
+
+      //destroying the pesticide sprite
+      pesticideCollide.destroy();
+
+      //if statement checks if health points are at zero; displays ending message
+      if (this.healthPoints <= 0) {
+        //playing game over music
+        this.sound.play('endMusic');
+        //stopping all movement on the screen
+        this.physics.pause();
+        //destroying the bee sprite
+        this.beeSprite.destroy();
+        //displaying game over text
+        this.gameOverText = this.add.text(1920 / 2, 1080 / 2, 'Game Over!\nClick to play again.', this.gameOverTextStyle).setOrigin(0.5);
+        //making the text interactive so that it starts the game again when it is clicked
+        this.gameOverText.setInteractive({ useHandCursor: true });
+        this.gameOverText.on('pointerdown', () => this.scene.start('gameScene'));
+      }
+
+      else {
+        //playing collision music
+        this.sound.play('enemyCollision');
+  
+        //function call to make another pesticide enemy appear at the other side of the screen
+        this.createPesticide();
+      }
     }.bind(this))
   }
 
@@ -248,33 +265,6 @@ class gameScene extends Phaser.Scene {
         item.destroy();
       }
     })
-
-    //checking if the health points are at 0 (the game is over)
-    if (this.healthPoints <= 0) {
-      while (this.endGameCalled === false) {
-        //function call to a function that shows game ending text and plays game over music
-        this.endOfGame();
-        //setting the variable to true so that the function is only called once
-        this.endGameCalled = true;
-      }
-    }
-  }
-
-  //function definition for when health points are at 0, when the game should end and a "game over" message should be displayed to the screen
-  endOfGame() {
-    //stopping all movement on the screen
-    this.physics.pause();
-    //destroying the bee sprite
-    this.beeSprite.destroy();
-    //displaying game over text
-    this.gameOverText = this.add.text(1920 / 2, 1080 / 2, 'Game Over!\nClick to play again.', this.gameOverTextStyle).setOrigin(0.5);
-    //making the text interactive so that it starts the game again when it is clicked
-    this.gameOverText.setInteractive({ useHandCursor: true });
-    this.gameOverText.on('pointerdown', () => this.scene.start('menuScene'));
-    //resetting points, function call and health points variables
-    this.score = 0;
-    this.healthPoints = 3;
-    this.endGameCalled = false;
   }
 }
 
