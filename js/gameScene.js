@@ -114,6 +114,9 @@ class gameScene extends Phaser.Scene {
 
     //loading the image for the flower sprite
     this.load.image('flower', '../images/flower.png');
+
+    //loading the sound file for when the bee sprite collides with a flower
+    this.load.audio('nectarCollected', '../sounds/nectarCollected.wav');
   }
 
   create(data) {
@@ -156,11 +159,6 @@ class gameScene extends Phaser.Scene {
       //playing an explosion sound upon collision
       //explosion sound taken from https://mixkit.co/free-sound-effects/boom/
       this.sound.play('explosion');
-
-      //adding 1 point to the score with each destroyed pesticide
-      this.score = this.score + 1;
-      //displaying the new score to the screen
-      this.scoreText.setText('Nectar Collected: ' + this.score.toString());
       
       //calling function twice to add two new pesticides each time one is destroyed
       this.createPesticide();
@@ -214,6 +212,26 @@ class gameScene extends Phaser.Scene {
         this.createPesticide();
       }
     }.bind(this))
+
+    //adding a third collider: when bee sprite "collects" nectar from flowers
+    this.physics.add.collider(this.beeSprite, this.flowerGroup, function (beeSpriteCollide, flowerCollide) {
+      //destroying the pesticide enemy upon collision
+      flowerCollide.destroy();
+
+      //playing an explosion sound upon collision
+      //explosion sound taken from https://mixkit.co/free-sound-effects/boom/
+      this.sound.play('nectarCollected');
+
+      //adding 1 point to the score with each destroyed pesticide
+      this.score = this.score + 1;
+      //displaying the new score to the screen
+      this.scoreText.setText('Nectar Collected: ' + this.score.toString());
+      
+      //calling function to add a new flower
+      this.createFlower();
+      
+      //binding above code to "this": 'this' represents the class created at the top of the file (gameScene)
+    }.bind(this));
   }
 
   update(time, delta) {
