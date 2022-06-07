@@ -318,6 +318,18 @@ class gameScene extends Phaser.Scene {
         item.destroy();
       }
     })
+
+    //every ten seconds, a new flower appears on the screen
+    if (time % 10000 === 0) {
+      //every 20 seconds, a new enemy appears on the screen
+      if (time % 20000 === 0) { 
+        //calling the pesticide function so pesticides keep showing up as the game continues
+        this.createPesticide();
+      }
+      //calling the flower function so flowers keep showing up as the game continues
+      this.createFlower();
+    }
+    //NOTE TO SELF: CREATEPESTICIDE() NOT WORKING EVERY 20 SECONDS - TRY ANOTHER WAY
   }
 }
 
