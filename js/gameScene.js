@@ -30,6 +30,21 @@ class gameScene extends Phaser.Scene {
     //adding the new sprite enemy created to the pesticide group
     this.pesticideGroup.add(aPesticide);
   }
+
+  //function definition for creating a flower (using a function because it will be referenced multiple times throughout the code)
+  createFlower() {
+    //creating a variable to make flowers appear at a random y location between 1 and 1080 px
+    const flowerYLocation = Math.floor(Math.random() * 1080) + 1;
+
+    //creating a variable that makes a flower appear each time this function is called
+    const aFlower = this.physics.add.sprite(1920, flowerYLocation, 'flower').setScale(0.2);
+
+    //adding an x velocity to the flower to make the flower move to the right of the screen
+    aFlower.body.velocity.x = -200;
+
+    //adding the new flower sprite created to the flower group
+    this.flowerGroup.add(aFlower);
+  }
   
   constructor() {
     //"super" accesses the properties of Phaser first
@@ -96,6 +111,9 @@ class gameScene extends Phaser.Scene {
 
     //loading the sound file for when a pesticide collides with the bee sprite
     this.load.audio('enemyCollision', '../sounds/collisionBeeAndEnemy.wav');
+
+    //loading the image for the flower sprite
+    this.load.image('flower', '../images/flower.png');
   }
 
   create(data) {
@@ -105,10 +123,10 @@ class gameScene extends Phaser.Scene {
     this.gameSceneBackground.setOrigin(0, 0);
 
     //adding the score text to the screen using the variables initialized in the "constructor"
-    this.scoreText = this.add.text(10, 10, 'Score: ' + this.score.toString(), this.scoreTextStyle);
+    this.scoreText = this.add.text(10, 10, 'Nectar Collected: ' + this.score.toString(), this.scoreTextStyle);
 
     //adding the health points text to the screen using the variables initialized in the "constructor"
-    this.healthPointsText = this.add.text(350, 10, 'Health Points: ' + this.healthPoints.toString(), this.healthPointsTextStyle);
+    this.healthPointsText = this.add.text(650, 10, 'Health Points: ' + this.healthPoints.toString(), this.healthPointsTextStyle);
 
     //creating the bee sprite on the screen
     this.beeSprite = this.physics.add.sprite(100, 1080 / 2, 'beeSprite').setScale(0.25);
@@ -120,6 +138,12 @@ class gameScene extends Phaser.Scene {
     this.pesticideGroup = this.add.group();
     //calling a function (defined at the top of the file) for creating a pesticide - this will be used to create enemies several times throughout the code
     this.createPesticide();
+
+    //creating a "group" for the same code to apply to all the flowers spawned
+    this.flowerGroup = this.add.group();
+    //calling a function (defined at the top of the file) for creating a flower when the game starts
+    this.createFlower();
+    this.createFlower();
 
     //adding a physics collider: when bolts hit pesticides, call a function
     this.physics.add.collider(this.boltGroup, this.pesticideGroup, function (boltCollide, pesticideCollide) {
@@ -136,7 +160,7 @@ class gameScene extends Phaser.Scene {
       //adding 1 point to the score with each destroyed pesticide
       this.score = this.score + 1;
       //displaying the new score to the screen
-      this.scoreText.setText('Score: ' + this.score.toString());
+      this.scoreText.setText('Nectar Collected: ' + this.score.toString());
       
       //calling function twice to add two new pesticides each time one is destroyed
       this.createPesticide();
@@ -161,7 +185,7 @@ class gameScene extends Phaser.Scene {
       
       //removing 1 health point each time pesticides collide with the bee sprite
       this.healthPoints -= 1;
-      //displaying the new score to the screen
+      //displaying the new health points to the screen
       this.healthPointsText.setText('Health Points: ' + this.healthPoints.toString());
 
       //if statement checks if health points are at zero; displays ending message
