@@ -150,14 +150,13 @@ class gameScene extends Phaser.Scene {
       //destroying the pesticide sprite
       pesticideCollide.destroy();
 
-      /* Attempt at stopping the problem where the bee sprite travels backwards
+      /* Attempting to stop bee sprite from moving backwards
       //destroying the bee sprite (without destroying the original bee sprite, it takes on the properties of the pesticide group and moves backwards)
       this.originalBeeSpriteX = beeSpriteCollide.x;
       this.originalBeeSpriteY = beeSpriteCollide.y;
       beeSpriteCollide.destroy();
       //adding a new bee sprite at the old bee sprite x and y locations
-      this.beeSprite = this.physics.add.sprite(this.originalBeeSpriteX, this.originalBeeSpriteY, 'beeSprite').setScale(0.25);
-
+      this.beeSprite1 = this.physics.add.sprite(this.originalBeeSpriteX, this.originalBeeSpriteY, 'beeSprite1').setScale(0.25);
       */
       
       //removing 1 health point each time pesticides collide with the bee sprite
