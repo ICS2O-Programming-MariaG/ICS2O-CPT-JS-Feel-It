@@ -169,6 +169,9 @@ class gameScene extends Phaser.Scene {
         //making the text interactive so that it starts the game again when it is clicked
         this.gameOverText.setInteractive({ useHandCursor: true });
         this.gameOverText.on('pointerdown', () => this.scene.start('gameScene'));
+        //resetting score and health points variables
+        this.score = 0;
+        this.healthPoints = 3;
       }
 
       else {
