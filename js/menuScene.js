@@ -17,6 +17,12 @@ class menuScene extends Phaser.Scene {
 
     //initializing a variable for the button
     this.startButton = null;
+
+    //initializing a variable for the text on the menu screen
+    this.explanatoryText = null;
+
+    //initializing a variable to style the text on the menu screen
+    this.menuSceneTextStyle = {font: '30px Arial', fill: '#ffffff', align: 'left'};
   }
 
   init(data) {
@@ -41,6 +47,9 @@ class menuScene extends Phaser.Scene {
     //centring background image on screen
     this.menuSceneBackgroundImage.x = 1920 / 2;
     this.menuSceneBackgroundImage.y = 1080 / 2;
+
+    //adding explanatory text
+    this.explanatoryText = this.add.text(150, 100, 'Instructions:\nMove with the arrow keys.\nAvoid pesticides and collect flowers to gain nectar points.\nShoot down enemy pesticides with the space bar.\nIf you need more flower sprites, press A.', this.menuSceneTextStyle);
 
     //creating image for starting button
     this.startButton = this.add.sprite(1920 / 5, (1080 / 2) + 300, 'startButton').setScale(0.8);
