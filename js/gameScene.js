@@ -186,15 +186,9 @@ class gameScene extends Phaser.Scene {
       if (this.healthPoints <= 0) {
         //playing game over music
         this.sound.play('endMusic');
-        //stopping all movement on the screen
-        this.physics.pause();
+        //omitted physics.pause() to keep game moving when the user wants to play again after the end game scene is shown
         //destroying the bee sprite
-        this.beeSprite.destroy();
-        //displaying game over text
-        this.gameOverText = this.add.text(1920 / 2, 1080 / 2, 'Game Over!\nClick to play again.', this.gameOverTextStyle).setOrigin(0.5);
-        //making the text interactive so that it starts the game again when it is clicked
-        this.gameOverText.setInteractive({ useHandCursor: true });
-        this.gameOverText.on('pointerdown', () => this.scene.start('gameScene'));
+        this.beeSprite.destroy();        
         //resetting score and health points variables
         this.score = 0;
         this.healthPoints = 3;

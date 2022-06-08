@@ -12,8 +12,10 @@ class menuScene extends Phaser.Scene {
     //"super" runs Phaser.Scene first
     super({key: 'gameOverScene'});
 
-    //initializing variable for text
+    //initializing a variable for the game over text
     this.gameOverText = null;
+    //styling the game over text
+    this.gameOverTextStyle = { font: '65px Arial', fill: '#ff0000', align: 'center' };
   }
 
   init(data) {
@@ -28,7 +30,10 @@ class menuScene extends Phaser.Scene {
 
   create(data) {
     //creating text in the middle of the screen
-    this.gameOverText = this.add.text(1920 / 2, 1080 / 2, 'Game Over!\nClick to play again.');
+    this.gameOverText = this.add.text(1920 / 2, 1080 / 2, 'Game Over!\nClick to play again.', this.gameOverTextStyle).setOrigin(0.5);
+    //making the text interactive so that it starts the game again when it is clicked
+    this.gameOverText.setInteractive({ useHandCursor: true });
+    this.gameOverText.on('pointerdown', () => this.scene.start('gameScene'));
   }
 
   update(time, delta) {
