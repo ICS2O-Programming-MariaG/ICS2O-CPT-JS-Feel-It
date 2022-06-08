@@ -171,15 +171,8 @@ class gameScene extends Phaser.Scene {
     this.physics.add.collider(this.beeSprite, this.pesticideGroup, function (beeSpriteCollide, pesticideCollide) {
       //destroying the pesticide sprite
       pesticideCollide.destroy();
-
-      /* Attempting to stop bee sprite from moving backwards
-      //destroying the bee sprite (without destroying the original bee sprite, it takes on the properties of the pesticide group and moves backwards)
-      this.originalBeeSpriteX = beeSpriteCollide.x;
-      this.originalBeeSpriteY = beeSpriteCollide.y;
-      beeSpriteCollide.destroy();
-      //adding a new bee sprite at the old bee sprite x and y locations
-      this.beeSprite1 = this.physics.add.sprite(this.originalBeeSpriteX, this.originalBeeSpriteY, 'beeSprite1').setScale(0.25);
-      */
+      //setting the bee sprite velocity back to 0 (otherwise the bee sprite adopts the velocity of the pesticide with which it collided)
+      this.beeSprite.body.velocity.x = 0;
       
       //removing 1 health point each time pesticides collide with the bee sprite
       this.healthPoints -= 1;
@@ -217,6 +210,8 @@ class gameScene extends Phaser.Scene {
     this.physics.add.collider(this.beeSprite, this.flowerGroup, function (beeSpriteCollide, flowerCollide) {
       //destroying the pesticide enemy upon collision
       flowerCollide.destroy();
+      //setting the bee sprite velocity back to 0 (otherwise the bee sprite adopts the velocity of the pesticide with which it collided)
+      this.beeSprite.body.velocity.x = 0;
 
       //playing an explosion sound upon collision
       //explosion sound taken from https://mixkit.co/free-sound-effects/boom/
@@ -237,13 +232,19 @@ class gameScene extends Phaser.Scene {
   update(time, delta) {
     //update is called 60 times per second
 
+    /* Attempt 1 at creating new flower and pesticide sprites at time interval
+    //converting time to an integer so that modulus (%) works
+    const intTime = parseInt(time);
+    
     //every five seconds, a new flower and pesticide appear on the screen
-    if (time % 300 === 0) {
+    if ((intTime % 20) == 0) {
+      console.log("time = " + intTime);
       //calling the flower function so flowers keep showing up as the game continues
       this.createFlower();
       //calling the pesticide function so pesticides keep showing up as the game continues
       this.createPesticide();
     }
+    */
     
     //variable looks for input from the keyboard to move the bee sprite left
     const keyLeftPressed = this.input.keyboard.addKey('LEFT');
