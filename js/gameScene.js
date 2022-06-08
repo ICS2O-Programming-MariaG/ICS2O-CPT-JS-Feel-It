@@ -79,7 +79,8 @@ class gameScene extends Phaser.Scene {
     //using a variable to select a font for the health points
     this.healthPointsTextStyle = { font: '65px Arial', fill: '#ffffff', align: 'center' };
 
-    //initializing a variable for if game over has been called so that game over scene is only shown once
+    //initializing a variable for the user's high score
+    this.highScore = 0;
   }
 
   init(data) {
@@ -187,6 +188,13 @@ class gameScene extends Phaser.Scene {
         //playing game over music
         this.sound.play('endMusic');
         //omitted physics.pause() to keep game moving when the user wants to play again after the end game scene is shown
+        //checking if the user score is greater than the high score
+        if (this.score > this.highScore) {
+          //setting the score as the new high score
+          this.highScore = this.score;
+        }
+
+        
         //destroying the bee sprite
         this.beeSprite.destroy();        
         //resetting score and health points variables
