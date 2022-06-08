@@ -59,6 +59,9 @@ class gameScene extends Phaser.Scene {
     //creating a boolean variable which will later make sure that only one bolt can be fired each time the space bar is pressed
     this.fireBolt = false;
 
+    //creating a boolean variable that will make sure that when the A button is pressed to create a new flower sprite and pesticide sprite (only done if there are no more sprites on the screen - to keep the game going), only one of each type of sprite can be produced with each time the A button is pressed (otherwise 10 of each show up at once)
+    this.spritesCreated = false;
+
     //initializing variables for the score and the text displaying the score
     this.score = 0;
     this.scoreText = null;
@@ -224,6 +227,8 @@ class gameScene extends Phaser.Scene {
       
       //calling function to add a new flower
       this.createFlower();
+      //calling function to add a new enemy pesticide, too
+      this.createPesticide();
       
       //binding above code to "this": 'this' represents the class created at the top of the file (gameScene)
     }.bind(this));
@@ -231,20 +236,6 @@ class gameScene extends Phaser.Scene {
 
   update(time, delta) {
     //update is called 60 times per second
-
-    /* Attempt 1 at creating new flower and pesticide sprites at time interval
-    //converting time to an integer so that modulus (%) works
-    const intTime = parseInt(time);
-    
-    //every five seconds, a new flower and pesticide appear on the screen
-    if ((intTime % 20) == 0) {
-      console.log("time = " + intTime);
-      //calling the flower function so flowers keep showing up as the game continues
-      this.createFlower();
-      //calling the pesticide function so pesticides keep showing up as the game continues
-      this.createPesticide();
-    }
-    */
     
     //variable looks for input from the keyboard to move the bee sprite left
     const keyLeftPressed = this.input.keyboard.addKey('LEFT');
@@ -327,6 +318,27 @@ class gameScene extends Phaser.Scene {
         item.destroy();
       }
     })
+
+    //troubleshooting on the user's end: give an option for if the screen is empty, press the "A" button to get more flowers/enemies
+    //variable checks for "A" button pressed, to make a new pesticide and flower appear
+    const buttonAPressed = this.input.keyboard.addKey('A');
+    //if the "A" button is pressed, call the functions to make a new flower and pesticide appear
+    if (buttonAPressed.isDown === true) {
+      //checking if the flower and pesticide have already been created during the same press of the A button
+      if (this.spritesCreated === false) {
+        //function call to create a pesticide
+        this.createPesticide();
+        //function call to create a pesticide
+        this.createFlower();
+        //setting this.spritesCreated to true to indicate that the sprites have already been created and should not be created again while the A button is still being held down
+        this.spritesCreated = true;
+      }
+    }
+      
+    //changing this.spritesCreated back to false when the A button stops being pressed so that the pesticide and flower sprites can be created again and the game can continue the next time the A button is pressed
+    if (buttonAPressed.isUp === true) {
+      this.spritesCreated = false;
+    }
   }
 }
 
