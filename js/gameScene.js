@@ -80,7 +80,7 @@ class gameScene extends Phaser.Scene {
     this.healthPointsTextStyle = { font: '65px Arial', fill: '#ffffff', align: 'center' };
 
     //initializing a variable for the user's high score
-    this.highScore = 0;
+    this.highScore = localStorage.getItem('Highscore');
   }
 
   init(data) {
@@ -187,21 +187,27 @@ class gameScene extends Phaser.Scene {
       if (this.healthPoints <= 0) {
         //playing game over music
         this.sound.play('endMusic');
+        //destroying the bee sprite
+        this.beeSprite.destroy(); 
         //omitted physics.pause() to keep game moving when the user wants to play again after the end game scene is shown
         //checking if the user score is greater than the high score
         if (this.score > this.highScore) {
-          //setting the score as the new high score
+          //setting the score as the new high score in localStorage (browser memory)
           this.highScore = this.score;
+          localStorage.setItem('Highscore', this.highScore);
+          //writing the high score in the console (for debugging purposes)
+          console.log('highscore =' + this.highScore);
+          //switching the scene to the you win scene
+          this.scene.switch('winScene');
         }
-
-        
-        //destroying the bee sprite
-        this.beeSprite.destroy();        
+        else if (this.score < this.highScore) {
+          //switching the scene to the you lose scene
+          this.scene.switch('loseScene');
+          console.log('highscore =' + this.highScore);
+        }
         //resetting score and health points variables
         this.score = 0;
         this.healthPoints = 3;
-        //switching to the game over scene
-        this.scene.switch('gameOverScene');
       }
 
       else {

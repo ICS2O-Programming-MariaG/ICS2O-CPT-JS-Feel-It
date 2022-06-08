@@ -15,15 +15,18 @@ import TitleScene from "./titleScene.js";
 import MenuScene from "./menuScene.js";
 //link to gameScene.js
 import GameScene from "./gameScene.js";
-//link to gameOverScene.js
-import GameOverScene from "./gameOverScene.js";
+//link to winScene.js
+import WinScene from "./winScene.js";
+//link to loseScene.js
+import LoseScene from "./loseScene.js";
 
 //creating constants to 'hold' the scene files
 const splashScene = new SplashScene();
 const titleScene = new TitleScene();
 const menuScene = new MenuScene();
 const gameScene = new GameScene();
-const gameOverScene = new GameOverScene();
+const winScene = new WinScene();
+const loseScene = new LoseScene();
 
 //using a constant to set up the basic Phaser game
 const config = {
@@ -57,7 +60,8 @@ game.scene.add('splashScene', splashScene);
 game.scene.add('titleScene', titleScene);
 game.scene.add('menuScene', menuScene);
 game.scene.add('gameScene', gameScene);
-game.scene.add('gameOverScene', gameOverScene);
+game.scene.add('winScene', winScene);
+game.scene.add('loseScene', loseScene);
 
 //starting scene
 game.scene.start('splashScene');

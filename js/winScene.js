@@ -7,10 +7,10 @@
 // Game over scene
 
 //code written below extends (adds to) prewritten code in Phaser.Scene
-class menuScene extends Phaser.Scene {
+class winScene extends Phaser.Scene {
   constructor() {
     //"super" runs Phaser.Scene first
-    super({key: 'gameOverScene'});
+    super({key: 'winScene'});
 
     //initializing a variable for the game over text
     this.gameOverText = null;
@@ -30,7 +30,7 @@ class menuScene extends Phaser.Scene {
 
   create(data) {
     //creating text in the middle of the screen
-    this.gameOverText = this.add.text(1920 / 2, 1080 / 2, 'Game Over!\nClick to play again.', this.gameOverTextStyle).setOrigin(0.5);
+    this.gameOverText = this.add.text(1920 / 2, 1080 / 2, 'You win!\nClick to play again.', this.gameOverTextStyle).setOrigin(0.5);
     //making the text interactive so that it starts the game again when it is clicked
     this.gameOverText.setInteractive({ useHandCursor: true });
     this.gameOverText.on('pointerdown', () => this.scene.start('gameScene'));
@@ -40,4 +40,4 @@ class menuScene extends Phaser.Scene {
   }
 }
 
-export default menuScene
+export default winScene
