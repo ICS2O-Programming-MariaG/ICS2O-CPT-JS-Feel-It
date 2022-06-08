@@ -198,6 +198,8 @@ class gameScene extends Phaser.Scene {
         //resetting score and health points variables
         this.score = 0;
         this.healthPoints = 3;
+        //switching to the game over scene
+        this.scene.switch('gameOverScene');
       }
 
       else {
