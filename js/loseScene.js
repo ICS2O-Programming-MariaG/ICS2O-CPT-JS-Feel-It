@@ -30,7 +30,7 @@ class loseScene extends Phaser.Scene {
     //for debugging purposes: writes Splash Scene in the console to let programmer know what scene/file is being displayed
     console.log("Game Over Scene");
 
-    //loading the spritesheet image
+    //loading the spritesheet image - converted a gif to a spritesheet using https://ezgif.com/gif-to-sprite/ezgif-2-de386180de.gif
     this.load.spritesheet('gif', '../images/youLoseSpriteSheet.png', {frameWidth: 480, frameHeight: 270});
   }
 
