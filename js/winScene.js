@@ -23,7 +23,7 @@ class winScene extends Phaser.Scene {
     //adding a variable to represent the animated gif
     this.youWinGif = null;
 
-    //initializing high score variable to 0
+    //initializing high score variable to 0 - the new high score will later be displayed
     this.highScore = 0;
   }
 

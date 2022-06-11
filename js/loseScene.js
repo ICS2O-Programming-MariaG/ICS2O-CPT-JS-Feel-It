@@ -19,6 +19,9 @@ class loseScene extends Phaser.Scene {
 
     //adding a variable to represent the animated gif
     this.youLoseGif = null;
+
+    //initializing high score variable to 0 - the high score to beat will later be displayed
+    this.highScore = 0;
   }
   
   init(data) {
@@ -36,7 +39,7 @@ class loseScene extends Phaser.Scene {
 
   create(data) {
     //creating text in the middle of the screen
-    this.gameOverText = this.add.text(1920 / 2, (1080 / 2) + 250, 'Click here to play again.', this.gameOverTextStyle).setOrigin(0.5);
+    this.gameOverText = this.add.text(1920 / 2, (1080 / 2) + 300, 'Click here to play again.', this.gameOverTextStyle).setOrigin(0.5);
     //making the text interactive so that it starts the game again when it is clicked
     this.gameOverText.setInteractive({ useHandCursor: true });
     this.gameOverText.on('pointerdown', () => this.scene.start('gameScene'));
@@ -63,6 +66,12 @@ class loseScene extends Phaser.Scene {
     this.youLoseGif.y = (1080 / 2) - 100;
     //changing the scale of the image - method found at https://phasergames.com/scaling-in-phaser-3/
     this.youLoseGif.displayWidth = (1920 / 2); this.youLoseGif.scaleY=this.youLoseGif.scaleX;
+
+    //getting the high score from local storage
+    this.highScore = localStorage.getItem('Highscore');
+
+    //displaying the high score text
+    this.displayHighScore = this.add.text(1920 / 2, (1080 / 2) + 200, "High score to beat = " + this.highScore.toString(), this.gameOverTextStyle).setOrigin(0.5);
   }
 
   update(time, delta) {
