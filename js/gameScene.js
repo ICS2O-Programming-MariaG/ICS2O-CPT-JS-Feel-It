@@ -110,7 +110,7 @@ class gameScene extends Phaser.Scene {
     //loading the sound file for when a bolt destroyes a pesticide
     this.load.audio('explosion', '../sounds/enemyDestroyed.wav');
 
-    //loading the sound file for game over
+    //loading the sound file for game over when user loses
     this.load.audio('endMusic', '../sounds/endGameNoise.wav');
 
     //loading the sound file for when a pesticide collides with the bee sprite
@@ -121,6 +121,9 @@ class gameScene extends Phaser.Scene {
 
     //loading the sound file for when the bee sprite collides with a flower
     this.load.audio('nectarCollected', '../sounds/nectarCollected.wav');
+
+    //loading the sound file for when the game ends and the user wins
+    this.load.audio('youWinMusic', '../sounds/youWinMusic.wav');
   }
 
   create(data) {
@@ -185,13 +188,13 @@ class gameScene extends Phaser.Scene {
 
       //if statement checks if health points are at zero; displays ending message
       if (this.healthPoints <= 0) {
-        //playing game over music
-        this.sound.play('endMusic');
         //destroying the bee sprite
         this.beeSprite.destroy(); 
         //omitted physics.pause() to keep game moving when the user wants to play again after the end game scene is shown
         //checking if the user score is greater than the high score
         if (this.score > this.highScore) {
+          //playing the winning music
+          this.sound.play('youWinMusic');
           //setting the score as the new high score in localStorage (browser memory)
           this.highScore = this.score;
           localStorage.setItem('Highscore', this.highScore);
@@ -201,6 +204,8 @@ class gameScene extends Phaser.Scene {
           this.scene.switch('winScene');
         }
         else if (this.score <= this.highScore) {
+          //playing losing game over music
+          this.sound.play('endMusic');
           //switching the scene to the you lose scene
           this.scene.switch('loseScene');
           console.log('highscore =' + this.highScore);
