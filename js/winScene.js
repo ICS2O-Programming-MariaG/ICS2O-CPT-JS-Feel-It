@@ -23,8 +23,8 @@ class winScene extends Phaser.Scene {
     //adding a variable to represent the animated gif
     this.youWinGif = null;
 
-    //initializing a variable for getting the user's high score to display
-    this.highScore = localStorage.getItem('Highscore');
+    //initializing high score variable to 0
+    this.highScore = 0;
   }
 
   init(data) {
@@ -46,6 +46,9 @@ class winScene extends Phaser.Scene {
     //making the text interactive so that it starts the game again when it is clicked
     this.gameOverText.setInteractive({ useHandCursor: true });
     this.gameOverText.on('pointerdown', () => this.scene.start('gameScene'));
+
+    //getting the high score from local storage
+    this.highScore = localStorage.getItem('Highscore');
 
     //displaying the high score text
     this.displayHighScore = this.add.text(1920 / 2, (1080 / 2) + 200, "New high score = " + this.highScore.toString(), this.gameOverTextStyle).setOrigin(0.5);

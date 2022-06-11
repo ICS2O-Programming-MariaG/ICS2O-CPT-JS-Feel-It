@@ -200,7 +200,7 @@ class gameScene extends Phaser.Scene {
           //switching the scene to the you win scene
           this.scene.switch('winScene');
         }
-        else if (this.score < this.highScore) {
+        else if (this.score <= this.highScore) {
           //switching the scene to the you lose scene
           this.scene.switch('loseScene');
           console.log('highscore =' + this.highScore);
