@@ -25,7 +25,7 @@ class splashScene extends Phaser.Scene {
     console.log("Splash Scene");
     //giving Phaser access to an image for the splash scene
     //Note: "this" refers to the scene in question (the current scene) and 'splashSceneImage' is the key
-    this.load.image('splashScreenImage', '../images/splashScreenImage.jpg');
+    this.load.image('splashScreenImage', './images/splashScreenImage.jpg');
   }
 
   create(data) {

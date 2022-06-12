@@ -31,7 +31,7 @@ class titleScene extends Phaser.Scene {
     //for debugging purposes: writes Splash Scene in the console to let programmer know what scene/file is being displayed
     console.log("Title Scene");
     //loading the image to be displayed as background image
-    this.load.image('titleSceneBackground', '../images/titleSceneImage.webp');
+    this.load.image('titleSceneBackground', './images/titleSceneImage.webp');
   }
 
   create(data) {

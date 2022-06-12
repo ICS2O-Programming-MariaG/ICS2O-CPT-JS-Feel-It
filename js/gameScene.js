@@ -93,37 +93,37 @@ class gameScene extends Phaser.Scene {
     console.log("Game Scene");
 
     //loading the background image
-    this.load.image('skyBackground', '../images/gameSceneBackground.png');
+    this.load.image('skyBackground', './images/gameSceneBackground.png');
 
     //loading the bee sprite image
-    this.load.image('beeSprite', '../images/beeSprite.png');
+    this.load.image('beeSprite', './images/beeSprite.png');
 
     //loading the image for the "bolt"/missile fired from the from the bee
-    this.load.image('bolt', '../images/bolt.png');
+    this.load.image('bolt', './images/bolt.png');
 
     //loading the image for the "pesticide" enemy
-    this.load.image('pesticide', '../images/beePesticide.png');
+    this.load.image('pesticide', './images/beePesticide.png');
 
     //loading the sound file for when a bolt is fired
-    this.load.audio('boltSound', '../sounds/boltFiredSound.wav');
+    this.load.audio('boltSound', './sounds/boltFiredSound.wav');
 
     //loading the sound file for when a bolt destroyes a pesticide
-    this.load.audio('explosion', '../sounds/enemyDestroyed.wav');
+    this.load.audio('explosion', './sounds/enemyDestroyed.wav');
 
     //loading the sound file for game over when user loses
-    this.load.audio('endMusic', '../sounds/endGameNoise.wav');
+    this.load.audio('endMusic', './sounds/endGameNoise.wav');
 
     //loading the sound file for when a pesticide collides with the bee sprite
-    this.load.audio('enemyCollision', '../sounds/collisionBeeAndEnemy.wav');
+    this.load.audio('enemyCollision', './sounds/collisionBeeAndEnemy.wav');
 
     //loading the image for the flower sprite
-    this.load.image('flower', '../images/flower.png');
+    this.load.image('flower', './images/flower.png');
 
     //loading the sound file for when the bee sprite collides with a flower
-    this.load.audio('nectarCollected', '../sounds/nectarCollected.wav');
+    this.load.audio('nectarCollected', './sounds/nectarCollected.wav');
 
     //loading the sound file for when the game ends and the user wins
-    this.load.audio('youWinMusic', '../sounds/youWinMusic.wav');
+    this.load.audio('youWinMusic', './sounds/youWinMusic.wav');
   }
 
   create(data) {

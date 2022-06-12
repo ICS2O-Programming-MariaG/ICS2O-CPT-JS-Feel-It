@@ -35,10 +35,10 @@ class menuScene extends Phaser.Scene {
     console.log("Menu Scene");
 
     //loading background image
-    this.load.image('menuSceneBackground', '../images/menuSceneBackground.jpg');
+    this.load.image('menuSceneBackground', './images/menuSceneBackground.jpg');
 
     //loading image for button
-    this.load.image('startButton', '../images/startButton.webp');
+    this.load.image('startButton', './images/startButton.webp');
   }
 
   create(data) {

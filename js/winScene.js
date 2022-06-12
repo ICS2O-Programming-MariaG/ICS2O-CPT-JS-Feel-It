@@ -37,7 +37,7 @@ class winScene extends Phaser.Scene {
     console.log("Game Over Scene");
 
     //loading the spritesheet image - converted a gif to a spritesheet using https://ezgif.com/gif-to-sprite/ezgif-2-de386180de.gif
-    this.load.spritesheet('winGif', '../images/youWinSpriteSheet.png', {frameWidth: 500, frameHeight: 500});
+    this.load.spritesheet('winGif', './images/youWinSpriteSheet.png', {frameWidth: 500, frameHeight: 500});
   }
 
   create(data) {

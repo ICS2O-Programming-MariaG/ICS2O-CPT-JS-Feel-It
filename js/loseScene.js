@@ -34,7 +34,7 @@ class loseScene extends Phaser.Scene {
     console.log("Game Over Scene");
 
     //loading the spritesheet image - converted a gif to a spritesheet using https://ezgif.com/gif-to-sprite/ezgif-2-de386180de.gif
-    this.load.spritesheet('gif', '../images/youLoseSpriteSheet.png', {frameWidth: 480, frameHeight: 270});
+    this.load.spritesheet('gif', './images/youLoseSpriteSheet.png', {frameWidth: 480, frameHeight: 270});
   }
 
   create(data) {
