@@ -22,6 +22,15 @@ class loseScene extends Phaser.Scene {
 
     //initializing high score variable to 0 - the high score to beat will later be displayed
     this.highScore = 0;
+
+    //initializing the display high score variable
+    this.displayHighScore = null;
+
+    //initializing the user score variable
+    this.userScore = 0;
+
+    //initializing the display user score variable
+    this.displayUserScore = null;
   }
   
   init(data) {
@@ -39,7 +48,7 @@ class loseScene extends Phaser.Scene {
 
   create(data) {
     //creating text in the middle of the screen
-    this.gameOverText = this.add.text(1920 / 2, (1080 / 2) + 300, 'Click here to play again.', this.gameOverTextStyle).setOrigin(0.5);
+    this.gameOverText = this.add.text(1920 / 2, (1080 / 2) + 400, 'Click here to play again.', this.gameOverTextStyle).setOrigin(0.5);
     //making the text interactive so that it starts the game again when it is clicked
     this.gameOverText.setInteractive({ useHandCursor: true });
     this.gameOverText.on('pointerdown', () => this.scene.start('gameScene'));
@@ -71,7 +80,13 @@ class loseScene extends Phaser.Scene {
     this.highScore = localStorage.getItem('Highscore');
 
     //displaying the high score text
-    this.displayHighScore = this.add.text(1920 / 2, (1080 / 2) + 200, "High score to beat = " + this.highScore.toString(), this.gameOverTextStyle).setOrigin(0.5);
+    this.displayHighScore = this.add.text(1920 / 2, (1080 / 2) + 300, "High score to beat = " + this.highScore.toString(), this.gameOverTextStyle).setOrigin(0.5);
+
+    //getting the score for the round from local storage
+    this.userScore = localStorage.getItem('Score');
+
+    //displaying the score text
+    this.displayUserScore = this.add.text(1920 / 2, (1080 / 2) + 200, "Your score = " + this.userScore.toString(), this.gameOverTextStyle).setOrigin(0.5);
   }
 
   update(time, delta) {

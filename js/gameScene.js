@@ -206,9 +206,13 @@ class gameScene extends Phaser.Scene {
         else if (this.score <= this.highScore) {
           //playing losing game over music
           this.sound.play('endMusic');
+          //saving the score in the browser's local storage to be displayed on the losing scene
+          localStorage.setItem('Score', this.score);
           //switching the scene to the you lose scene
           this.scene.switch('loseScene');
+          //writing the high score and the score in the console for debugging purposes
           console.log('highscore =' + this.highScore);
+          console.log('score =' + this.score);
         }
         //resetting score and health points variables
         this.score = 0;
