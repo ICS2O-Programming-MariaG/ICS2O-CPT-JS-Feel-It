@@ -45,6 +45,15 @@ class gameScene extends Phaser.Scene {
     //adding the new flower sprite created to the flower group
     this.flowerGroup.add(aFlower);
   }
+
+  //defining the function moreFlowersButtonClicked - when the user clicks this button, a new flower sprite and a new pesticide will appear on the screen
+  //this is to fix the problem where, if the bee sprite dodges all the sprites, no new ones show up on the screen
+  moreFlowersButtonClicked() {
+    //calling the function to create a new flower sprite
+    this.createFlower();
+    //calling the function to create a new pesticide enemy sprite
+    this.createPesticide();
+  }
   
   constructor() {
     //"super" accesses the properties of Phaser first
@@ -58,9 +67,6 @@ class gameScene extends Phaser.Scene {
 
     //creating a boolean variable which will later make sure that only one bolt can be fired each time the space bar is pressed
     this.fireBolt = false;
-
-    //creating a boolean variable that will make sure that when the A button is pressed to create a new flower sprite and pesticide sprite (only done if there are no more sprites on the screen - to keep the game going), only one of each type of sprite can be produced with each time the A button is pressed (otherwise 10 of each show up at once)
-    this.spritesCreated = false;
 
     //initializing variables for the score and the text displaying the score
     this.score = 0;
@@ -81,6 +87,9 @@ class gameScene extends Phaser.Scene {
 
     //initializing a variable for the user's high score
     this.highScore = localStorage.getItem('Highscore');
+
+    //initializing a variable to display the "get more flowers" button to the screen
+    this.getMoreFlowers = null;
   }
 
   init(data) {
@@ -124,6 +133,9 @@ class gameScene extends Phaser.Scene {
 
     //loading the sound file for when the game ends and the user wins
     this.load.audio('youWinMusic', './sounds/youWinMusic.wav');
+
+    //loading the image file for the "get more flowers" button
+    this.load.image('getMoreFlowersButton', './images/moreFlowersButton.png');
   }
 
   create(data) {
@@ -131,6 +143,13 @@ class gameScene extends Phaser.Scene {
     this.gameSceneBackground = this.add.image(0, 0, 'skyBackground');
     //positioning the background image to take up the screen
     this.gameSceneBackground.setOrigin(0, 0);
+
+    //creating the get more flowers button
+    this.getMoreFlowers = this.add.image(1300, 50, 'getMoreFlowersButton').setScale(0.2);
+    //making the button interactive (responsive to user click)
+    this.getMoreFlowers.setInteractive({ useHandCursor: true });
+    //when button clicked, call a function that will create one new flower and one new pesticide
+    this.getMoreFlowers.on('pointerdown', () => this.moreFlowersButtonClicked());
 
     //adding the score text to the screen using the variables initialized in the "constructor"
     this.scoreText = this.add.text(10, 10, 'Nectar Collected: ' + this.score.toString(), this.scoreTextStyle);
@@ -336,28 +355,7 @@ class gameScene extends Phaser.Scene {
       if (item.x > 1920) {
         item.destroy();
       }
-    })
-
-    //troubleshooting on the user's end: give an option for if the screen is empty, press the "A" button to get more flowers/enemies
-    //variable checks for "A" button pressed, to make a new pesticide and flower appear
-    const buttonAPressed = this.input.keyboard.addKey('A');
-    //if the "A" button is pressed, call the functions to make a new flower and pesticide appear
-    if (buttonAPressed.isDown === true) {
-      //checking if the flower and pesticide have already been created during the same press of the A button
-      if (this.spritesCreated === false) {
-        //function call to create a pesticide
-        this.createPesticide();
-        //function call to create a pesticide
-        this.createFlower();
-        //setting this.spritesCreated to true to indicate that the sprites have already been created and should not be created again while the A button is still being held down
-        this.spritesCreated = true;
-      }
-    }
-      
-    //changing this.spritesCreated back to false when the A button stops being pressed so that the pesticide and flower sprites can be created again and the game can continue the next time the A button is pressed
-    if (buttonAPressed.isUp === true) {
-      this.spritesCreated = false;
-    }
+    })    
   }
 }
 
