@@ -65,7 +65,7 @@ class menuScene extends Phaser.Scene {
     this.startButton.on('pointerdown', () => this.startButtonClicked());
 
     //creating the image for the "clear high score" button
-    this.clearHighScoreButton = this.add.sprite(1920 * 0.8, (1080 / 2) + 300, 'clearHighScoreButton').setScale(0.25);
+    this.clearHighScoreButton = this.add.sprite(1920 * 0.8, (1080 / 2) + 330, 'clearHighScoreButton').setScale(0.3);
     //making the clear high score button interactive
     this.clearHighScoreButton.setInteractive({ useHandCursor: true });
     //when the clear high score button is clicked, call another function that will set the user's high score back to 0
