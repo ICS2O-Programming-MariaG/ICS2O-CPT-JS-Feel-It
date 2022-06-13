@@ -45,6 +45,9 @@ class menuScene extends Phaser.Scene {
 
     //loading the image for the "clear high score" button
     this.load.image('clearHighScoreButton', './images/clearHighScoreButton.png');
+
+    //loading the sound effect for when the high score is cleared
+    this.load.audio('clearScoreClicked', './sounds/clearScoreClicked.wav');
   }
 
   create(data) {
@@ -83,9 +86,14 @@ class menuScene extends Phaser.Scene {
 
   //function for when clear high score button is clicked
   clearHighScoreButtonClicked() {
+    //setting the high score to 0
+    localStorage.setItem('Highscore', 0);
+    
     //console.log for debugging purposes
     console.log("Score cleared! New high score =" + localStorage.getItem('highScore'));
-    localStorage.setItem('Highscore', 0);
+
+    //making a positive notification noise to indicate that the task has been properly performed
+    this.sound.play('clearScoreClicked');
   }
 }
 
