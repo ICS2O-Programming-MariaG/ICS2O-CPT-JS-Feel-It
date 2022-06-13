@@ -86,7 +86,7 @@ class gameScene extends Phaser.Scene {
     this.healthPointsTextStyle = { font: '65px Arial', fill: '#ffffff', align: 'center' };
 
     //initializing a variable for the user's high score
-    this.highScore = localStorage.getItem('Highscore');
+    this.highScore = null;
 
     //initializing a variable to display the "get more flowers" button to the screen
     this.getMoreFlowers = null;
@@ -143,6 +143,9 @@ class gameScene extends Phaser.Scene {
     this.gameSceneBackground = this.add.image(0, 0, 'skyBackground');
     //positioning the background image to take up the screen
     this.gameSceneBackground.setOrigin(0, 0);
+
+    //setting this.highScore to the high score saved in the browser
+    this.highScore = parseInt(localStorage.getItem('Highscore'));
 
     //creating the get more flowers button
     this.getMoreFlowers = this.add.image(1300, 50, 'getMoreFlowersButton').setScale(0.2);

@@ -15,7 +15,7 @@ class menuScene extends Phaser.Scene {
     //initializing a variable for the background image
     this.menuSceneBackgroundImage = null;
 
-    //initializing a variable for the button
+    //initializing a variable for the start button
     this.startButton = null;
 
     //initializing a variable for the text on the menu screen
@@ -23,6 +23,9 @@ class menuScene extends Phaser.Scene {
 
     //initializing a variable to style the text on the menu screen
     this.menuSceneTextStyle = {font: '30px Arial', fill: '#ffffff', align: 'left'};
+
+    //initializing a variable for the "clear high score" button
+    this.clearHighScoreButton = null;
   }
 
   init(data) {
@@ -37,8 +40,11 @@ class menuScene extends Phaser.Scene {
     //loading background image
     this.load.image('menuSceneBackground', './images/menuSceneBackground.jpg');
 
-    //loading image for button
+    //loading image for the start button
     this.load.image('startButton', './images/startButton.webp');
+
+    //loading the image for the "clear high score" button
+    this.load.image('clearHighScoreButton', './images/clearHighScoreButton.png');
   }
 
   create(data) {
@@ -53,10 +59,17 @@ class menuScene extends Phaser.Scene {
 
     //creating image for starting button
     this.startButton = this.add.sprite(1920 / 5, (1080 / 2) + 300, 'startButton').setScale(0.8);
-    //making button interactive (responsive to user click)
-    this.startButton.setInteractive({useHandCursor: true });
-    //when button clicked, call a function
-    this.startButton.on('pointerdown', () => this.buttonClicked());
+    //making start button interactive (responsive to user click)
+    this.startButton.setInteractive({ useHandCursor: true });
+    //when start button clicked, call a function that will bring the user to the game scene
+    this.startButton.on('pointerdown', () => this.startButtonClicked());
+
+    //creating the image for the "clear high score" button
+    this.clearHighScoreButton = this.add.sprite(1920 * 0.8, (1080 / 2) + 300, 'clearHighScoreButton').setScale(0.25);
+    //making the clear high score button interactive
+    this.clearHighScoreButton.setInteractive({ useHandCursor: true });
+    //when the clear high score button is clicked, call another function that will set the user's high score back to 0
+    this.clearHighScoreButton.on('pointerdown', () => this.clearHighScoreButtonClicked());
   }
 
   update(time, delta) {
@@ -64,8 +77,15 @@ class menuScene extends Phaser.Scene {
   }
 
   //function for when start button is clicked
-  buttonClicked() {
+  startButtonClicked() {
     this.scene.start('gameScene');
+  }
+
+  //function for when clear high score button is clicked
+  clearHighScoreButtonClicked() {
+    //console.log for debugging purposes
+    console.log("Score cleared! New high score =" + localStorage.getItem('highScore'));
+    localStorage.setItem('Highscore', 0);
   }
 }
 
