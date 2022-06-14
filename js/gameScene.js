@@ -366,7 +366,7 @@ class gameScene extends Phaser.Scene {
         //resetting the x value to the start
         item.x = 1920;
         //picking a new random y value for when the sprite reappears
-        item.y = Math.floor(Math.random() * 1 + 1080);
+        item.y = Math.floor(Math.random() * 1080 + 1);
       }
     })
 
@@ -377,7 +377,7 @@ class gameScene extends Phaser.Scene {
         //resetting the x value to the start
         item.x = 1920;
         //picking a new random y value for when the sprite reappears
-        item.y = Math.floor(Math.random() * 1 + 1080);
+        item.y = Math.floor(Math.random() * 1080 + 1);
       }
     })
   }
