@@ -358,7 +358,29 @@ class gameScene extends Phaser.Scene {
       if (item.x > 1920) {
         item.destroy();
       }
-    })    
+    })
+
+    //checking the x value of the enemy pesticides, making them go back to the start of the screen, keeping the game going, if they have gone off the screen
+    this.pesticideGroup.children.each(function (item) {
+      //checking if the item has gone off the screen up, down or to the left
+      if ((item.x < 0) || (item.y > 1080) || (item.y < 0)) {
+        //resetting the x value to the start
+        item.x = 1920;
+        //picking a new random y value for when the sprite reappears
+        item.y = Math.floor(Math.random() * 1 + 1080);
+      }
+    })
+
+    //checking the x value of the flowers, making them go back to the start of the screen, keeping the game going, if they have gone off the screen
+    this.flowerGroup.children.each(function (item) {
+      //checking if the item has gone off the screen up, down or to the left
+      if ((item.x < 0) || (item.y > 1080) || (item.y < 0)) {
+        //resetting the x value to the start
+        item.x = 1920;
+        //picking a new random y value for when the sprite reappears
+        item.y = Math.floor(Math.random() * 1 + 1080);
+      }
+    })
   }
 }
 
