@@ -189,8 +189,7 @@ class gameScene extends Phaser.Scene {
       //explosion sound taken from https://mixkit.co/free-sound-effects/boom/
       this.sound.play('explosion');
       
-      //calling function twice to add two new pesticides each time one is destroyed
-      this.createPesticide();
+      //calling function to add a new pesticide each time one is destroyed
       this.createPesticide();
       
       //binding above code to "this": 'this' represents the class created at the top of the file (gameScene)
