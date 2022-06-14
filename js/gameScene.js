@@ -49,7 +49,8 @@ class gameScene extends Phaser.Scene {
   //defining the function moreFlowersButtonClicked - when the user clicks this button, a new flower sprite and a new pesticide will appear on the screen
   //this is to fix the problem where, if the bee sprite dodges all the sprites, no new ones show up on the screen
   moreFlowersButtonClicked() {
-    //calling the function to create a new flower sprite
+    //calling the function twice to create two new flower sprites
+    this.createFlower();
     this.createFlower();
     //calling the function to create a new pesticide enemy sprite
     this.createPesticide();
