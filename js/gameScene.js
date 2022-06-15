@@ -301,6 +301,8 @@ class gameScene extends Phaser.Scene {
     if (keyLeftPressed.isDown === true) {
       //moves the bee sprite left on the x-axis
       this.beeSprite.x -= 5;
+      //flipping the x-value of the bee sprite so it is facing the direction of travel
+      this.beeSprite.flipX = true;
       //wrapping the sprite to the other side of the screen when it is moved off the right of the screen
       if (this.beeSprite.x < 0) {
         this.beeSprite.x = 1920;
@@ -313,6 +315,8 @@ class gameScene extends Phaser.Scene {
     if (keyRightPressed.isDown === true) {
       //moves the bee sprite right on the x-axis
       this.beeSprite.x += 5;
+      //not flipping the x-value of the bee sprite so it is facing the direction of travel
+      this.beeSprite.flipX = false;
       //wrapping the sprite to the other side of the screen when it is moved off the left of the screen
       if (this.beeSprite.x > 1920) {
         this.beeSprite.x = 0;
