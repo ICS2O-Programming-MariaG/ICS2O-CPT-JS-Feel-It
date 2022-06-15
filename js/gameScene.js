@@ -49,11 +49,22 @@ class gameScene extends Phaser.Scene {
   //defining the function moreFlowersButtonClicked - when the user clicks this button, a new flower sprite and a new pesticide will appear on the screen
   //this is to fix the problem where, if the bee sprite dodges all the sprites, no new ones show up on the screen
   moreFlowersButtonClicked() {
-    //calling the function twice to create two new flower sprites
-    this.createFlower();
-    this.createFlower();
-    //calling the function to create a new pesticide enemy sprite
-    this.createPesticide();
+    //adding 1 to the flower button counter
+    this.numTimesFlowerButtonClicked += 1;
+    //only adding more flowers if the flower button has not already been used 3 times
+    if (this.numTimesFlowerButtonClicked <= 3) {
+      //calling the function twice to create two new flower sprites
+      this.createFlower();
+      this.createFlower();
+      //calling the function to create a new pesticide enemy sprite
+      this.createPesticide();
+    }
+    else {
+      //alerting the user to the fact that the flower button is used up if the button has been clicked more than 3 times
+      this.add.text(1200, 40, "Flower Button is Used Up.", this.flowerButtonUsedUpTextStyle);
+      //destroying the get more flowers button, replacing it with the above text
+      this.getMoreFlowers.destroy();
+    }
   }
   
   constructor() {
@@ -91,6 +102,12 @@ class gameScene extends Phaser.Scene {
 
     //initializing a variable to display the "get more flowers" button to the screen
     this.getMoreFlowers = null;
+
+    //initializing a variable so that the more flowers button can only be clicked 3 times
+    this.numTimesFlowerButtonClicked = null;
+
+    //initializing a variable for the text style of the message shown when the flower button has been used 5 times
+    this.flowerButtonUsedUpTextStyle = {font: '30px Arial', fill: '#fe5048', align: 'left'};
   }
 
   init(data) {

@@ -58,7 +58,7 @@ class menuScene extends Phaser.Scene {
     this.menuSceneBackgroundImage.y = 1080 / 2;
 
     //adding explanatory text
-    this.explanatoryText = this.add.text(150, 100, 'Instructions:\nMove with the arrow keys.\nAvoid pesticides and collect flowers to gain nectar points.\nShoot down enemy pesticides with the space bar.\nIf you want more flower sprites, press the Get More Flowers button.', this.menuSceneTextStyle);
+    this.explanatoryText = this.add.text(150, 100, 'Instructions:\nMove with the arrow keys.\nAvoid pesticides and collect flowers to gain nectar points.\nShoot down enemy pesticides with the space bar.\nNeed more help? Get more flowers with the Get More Flowers Button.\nThe Get More Flowers button is limited: use it a maximum of 3 times.', this.menuSceneTextStyle);
 
     //creating image for starting button
     this.startButton = this.add.sprite(1920 / 5, (1080 / 2) + 300, 'startButton').setScale(0.8);
