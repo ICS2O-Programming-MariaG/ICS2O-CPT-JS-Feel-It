@@ -83,7 +83,7 @@ class winScene extends Phaser.Scene {
   switchScene() {
     //switching to the game scene
     this.scene.start('gameScene');
-    //stopping the winning (clapping) music
+    //stopping the winning (clapping) music - learned from https://www.stephengarside.co.uk/blog/how-to-stop-all-sound-in-phaser-3-game/
     this.game.sound.stopAll();
   }
 }
