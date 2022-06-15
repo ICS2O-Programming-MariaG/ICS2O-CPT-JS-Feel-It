@@ -45,7 +45,7 @@ class winScene extends Phaser.Scene {
     this.gameOverText = this.add.text(1920 / 2, (1080 / 2) + 300, 'Click here to play again.', this.gameOverTextStyle).setOrigin(0.5);
     //making the text interactive so that it starts the game again when it is clicked
     this.gameOverText.setInteractive({ useHandCursor: true });
-    this.gameOverText.on('pointerdown', () => this.scene.start('gameScene'));
+    this.gameOverText.on('pointerdown', () => this.switchScene());
 
     //getting the high score from local storage
     this.highScore = localStorage.getItem('Highscore');
@@ -78,6 +78,13 @@ class winScene extends Phaser.Scene {
   }
 
   update(time, delta) {
+  }
+
+  switchScene() {
+    //switching to the game scene
+    this.scene.start('gameScene');
+    //stopping the winning (clapping) music
+    this.game.sound.stopAll();
   }
 }
 
